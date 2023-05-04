@@ -47,9 +47,11 @@
   },
   "homepage": "https://github.com/aneoconsulting/order-github-release-notes#readme",
   "dependencies": {
+    "c12": "^1.4.1",
+    "cac": "^6.7.14",
+    "changelogen": "^0.5.3",
     "changelogithub": "^0.12.9",
     "consola": "^3.1.0",
-    "cac": "^6.7.14",
     "ofetch": "^1.0.1"
   },
   "devDependencies": {

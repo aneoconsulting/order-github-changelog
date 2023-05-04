@@ -1,7 +1,6 @@
-import type { ChangelogOptions } from 'changelogithub'
-import type { ReleaseNotes, TypedChanges } from './types'
+import type { ReleaseNotes, ResolvedChangelogOptions, TypedChanges } from './types'
 
-export function buildReleaseNotes(releaseNotes: ReleaseNotes, config: ChangelogOptions) {
+export function buildReleaseNotes(releaseNotes: ReleaseNotes, config: ResolvedChangelogOptions) {
   const contributors = getContributors(releaseNotes)
   const changes = buildChanges(releaseNotes, config)
 
@@ -10,10 +9,10 @@ export function buildReleaseNotes(releaseNotes: ReleaseNotes, config: ChangelogO
 [compare changes](https://github.com/${config.github}/compare/${config.from}...${config.to})
 
 ${changes.length ? changes : '_No significant changes._\n'}
-${contributors.length ? '## ❤️ Contributors' : ''}
-${contributors.join('\n')}`
+${(config.contributors && contributors.length) ? '## ❤️ Contributors' : ''}
+${config.contributors ? contributors.join('\n') : ''}`
 
-  return content
+  return content.trim()
 }
 
 export function orderReleaseNotes(releaseNotes: ReleaseNotes) {
@@ -63,7 +62,7 @@ export function orderTypedChanges(typedChanges: TypedChanges[]) {
   return orderedChanges
 }
 
-export function buildChanges(releaseNotes: ReleaseNotes, config: ChangelogOptions) {
+export function buildChanges(releaseNotes: ReleaseNotes, config: ResolvedChangelogOptions) {
   const orderedReleaseNotes = orderReleaseNotes(releaseNotes)
 
   let content = ''

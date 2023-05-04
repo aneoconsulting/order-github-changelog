@@ -1,8 +1,7 @@
-import type { ChangelogOptions } from 'changelogithub'
 import { $fetch } from 'ofetch'
-import type { ReleaseNotes } from './types'
+import type { ReleaseNotes, ResolvedChangelogOptions } from './types'
 
-export async function generateReleaseNotesContent(config: ChangelogOptions) {
+export async function generateReleaseNotesContent(config: ResolvedChangelogOptions) {
   const data = await $fetch<ReleaseNotes>(`https://api.github.com/repos/${config.github}/releases/generate-notes`, {
     method: 'POST',
     headers: {
@@ -16,7 +15,7 @@ export async function generateReleaseNotesContent(config: ChangelogOptions) {
   return data
 }
 
-export async function updateReleaseNotesContent(releaseNotes: string, config: ChangelogOptions) {
+export async function updateReleaseNotesContent(releaseNotes: string, config: ResolvedChangelogOptions) {
   let url = `https://api.github.com/repos/${config.github}/releases`
   let method = 'POST'
   try {

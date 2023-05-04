@@ -51,17 +51,13 @@ It will be trigged whenever you push a tag to GitHub that starts with `v`.
 
 ## Configuration
 
-You can put a configuration file in the project root, named as `changelogithub.config.{json,ts,js,mjs,cjs}`, `.changelogithubrc` or use the `changelogithub` field in `package.json`.
+You can put a configuration file in the project root, named as `order-github-release-notes.config.{json,ts,js,mjs,cjs}`, `.order-github-release-notesrc` or use the `order-github-release-notes` field in `package.json`.
 
 ## Preview Locally
 
 ```bash
-npx changelogithub --dry
+npx @aneoconsultingfr/order-github-release-date --dry
 ```
-
-## Why?
-
-I used to use [`conventional-github-releaser`](https://github.com/conventional-changelog/releaser-tools/tree/master/packages/conventional-github-releaser) for almost all my projects. Until I found that it [does NOT support using exclamation mark for breaking changes](https://github.com/conventional-changelog/conventional-changelog/issues/648) - hiding those important breaking changes in the changelog without the awareness from maintainers.
 
 ## License
 

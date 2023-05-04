@@ -1,14 +1,16 @@
 import cac from 'cac'
-import { resolveConfig } from 'changelogithub'
 import { consola } from 'consola'
 import { version } from '../package.json'
 import { buildReleaseNotes } from './generate'
 import { generateReleaseNotesContent, updateReleaseNotesContent } from './github'
+import { resolveConfig } from './config'
+import type { ReleaseNotes } from './types'
 
 const cli = cac('order-github-release-notes')
 
 cli.version(version)
   .option('-t, --token <token>', 'GitHub Token')
+  .option('-i, --input <input>', 'Custom changelog input (avoid fetching from GitHub)')
   .option('--dry', 'Dry run')
   .help()
 
@@ -24,15 +26,26 @@ cli.command('')
         process.exit(1)
       }
 
-      consola.info('Generate Release Notes Content')
-      const generatedReleaseNotes = await generateReleaseNotesContent (config)
+      let generatedReleaseNotes: ReleaseNotes = {
+        name: '',
+        body: '',
+      }
+      if (config.input) {
+        consola.info('Use Custom Release Notes Content')
+        generatedReleaseNotes.body = config.input
+      }
+      else {
+        consola.info('Generate Release Notes Content')
+        generatedReleaseNotes = await generateReleaseNotesContent(config)
+      }
 
+      consola.log(generatedReleaseNotes)
       consola.info('Build Release Notes')
       const releaseNotes = buildReleaseNotes(generatedReleaseNotes, config)
 
       if (config.dry) {
         consola.info('Dry run. Update skipped.')
-        consola.info(releaseNotes)
+        consola.log(releaseNotes)
         process.exit(0)
       }
 
