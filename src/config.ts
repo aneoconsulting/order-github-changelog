@@ -7,10 +7,14 @@ export function defineConfig(config: ChangelogOptions) {
 
 const defaultConfig: ChangelogOptions = {
   types: {
-    // TODO: add more default
-    feat: { title: '🚀 Features' },
-    fix: { title: '🐞 Bug Fixes' },
-    perf: { title: '🏎 Performance' },
+    feat: { title: '🚀 Enhancements' },
+    perf: { title: '🔥 Performance' },
+    fix: { title: '🩹 Fixes' },
+    refactor: { title: '💅 Refactors' },
+    docs: { title: '📖 Documentation' },
+    chore: { title: '🏡 Chore' },
+    test: { title: '✅ Tests' },
+    ci: { title: '🤖 CI' },
   },
   contributors: true,
 }
