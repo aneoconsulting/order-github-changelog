@@ -1,0 +1,36 @@
+name: Release
+
+permissions:
+  contents: write
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup
+        run: npm i -g @antfu/ni pnpm
+
+      - name: Set node
+        uses: actions/setup-node@v3
+        with:
+          cache: pnpm
+          registry-url: https://registry.npmjs.org/
+          node-version: 18.x
+
+
+      - name: Install
+        run: nci
+
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NPM_CONFIG_PROVENANCE: true
