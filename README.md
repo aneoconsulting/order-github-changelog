@@ -5,7 +5,7 @@
 Organize auto generated changelog using the GitHub API in order to allow merge commit (instead of squash).
 Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), powered by [changelogen](https://github.com/unjs/changelogen).
 
-<!-- [👉 Changelog example](https://github.com/unocss/unocss/releases/tag/v0.39.0) -->
+We use
 
 ## Features
 
