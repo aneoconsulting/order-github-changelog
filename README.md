@@ -55,8 +55,6 @@ You can put a configuration file in the project root, named as `order-github-rel
 
 ## Preview Locally
 
-<!-- Add the input flag usage -->
-
 ```bash
 npx @aneoconsultingfr/order-github-release-date --dry
 ```
