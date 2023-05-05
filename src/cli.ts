@@ -39,7 +39,6 @@ cli.command('')
         generatedReleaseNotes = await generateReleaseNotesContent(config)
       }
 
-      consola.log(generatedReleaseNotes)
       consola.info('Build Release Notes')
       const releaseNotes = buildReleaseNotes(generatedReleaseNotes, config)
 
@@ -61,29 +60,3 @@ cli.command('')
   })
 
 cli.parse()
-
-// create a cli function (from @antfu/changelogithub)
-// async function main() {
-//   const config = await resolveConfig({})
-
-//   console.log(config.types)
-
-//   const { body } = await fetchReleaseNotes(config)
-
-//   // rename to another function
-//   const groupedLines = groupLines(data, config)
-//   const changes = generateChanges(groupedLines)
-
-//   const diffURL = data[data.length - 1].replace('**Full Changelog**: ', '')
-//   const releaseNotes = generateReleaseNotes(changes, diffURL)
-
-//   await updateReleaseNotes(releaseNotes, config)
-// }
-
-// main().then(() => {
-//   process.exit(0)
-// },
-// ).catch((err) => {
-//   console.error(err)
-//   process.exit(1)
-// })
