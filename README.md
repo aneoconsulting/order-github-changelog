@@ -56,13 +56,17 @@ You can put a configuration file in the project root, named as `order-github-rel
 ## Preview Locally
 
 ```bash
-npx @aneoconsultingfr/order-github-release-date --dry
+export GITHUB_TOKEN=$(gh auth token)
+```
+
+```bash
+npx @aneoconsultingfr/order-github-release-notes --dry
 ```
 
 In order to avoid to use a GitHub token, you can use the `--input` flag to provide data.
 
 ```bash
-npx @aneoconsultingfr/order-github-release-date --input '* feat: a new feature
+npx @aneoconsultingfr/order-github-release-notes --input '* feat: a new feature
 * fix: a bug fix
 * docs: documentation only changes
 * @new-contributor: a new contributor
