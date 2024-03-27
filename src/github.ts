@@ -9,6 +9,7 @@ export async function generateReleaseNotesContent(config: ResolvedChangelogOptio
     },
     body: {
       tag_name: config.to,
+      previous_tag_name: config.from
     },
   })
 

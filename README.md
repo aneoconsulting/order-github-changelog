@@ -73,6 +73,12 @@ npx @aneoconsultingfr/order-github-release-notes --input '* feat: a new feature
 '
 ```
 
+## Dev
+
+```bash
+nci -D
+```
+
 ## License
 
 [MIT](./LICENSE) License © 2023 [Aneo](https://github.com/aneoconsulting)
