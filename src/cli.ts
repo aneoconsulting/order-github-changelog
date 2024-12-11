@@ -13,6 +13,7 @@ cli.version(version)
   .option('-t, --token <token>', 'GitHub Token')
   .option('-i, --input <input>', 'Custom changelog input (avoid fetching from GitHub)')
   .option('--dry', 'Dry run')
+  .option('-c, --config', 'Display the update config')
   .help()
 
 cli.command('')
@@ -21,6 +22,10 @@ cli.command('')
 
     try {
       const config = await resolveConfig(args)
+
+      if (config.config) {
+        consola.box(`Config Options\n - Origin tag: ${config.from}\n - New tag: ${config.to}`)
+      }
 
       if (!config.token) {
         consola.fatal('No GitHub token found. Please set the GITHUB_TOKEN environment variable.')
@@ -56,6 +61,7 @@ cli.command('')
     }
     catch (error) {
       consola.error(error)
+      consola.fail('Release notes could not be updated.')
       process.exit(1)
     }
   })
