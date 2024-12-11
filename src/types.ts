@@ -45,6 +45,10 @@ export interface ChangelogOptions extends Partial<ChangelogenOptions> {
   titles?: {
     breakingChanges?: string
   }
+  /**
+   * Display the config in the console.
+   */
+  config?: boolean
 }
 
 export type ResolvedChangelogOptions = Required<ChangelogOptions>

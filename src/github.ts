@@ -1,4 +1,6 @@
+import type { FetchResponse } from 'ofetch'
 import type { ReleaseNotes, ResolvedChangelogOptions } from './types'
+import consola from 'consola'
 import { $fetch } from 'ofetch'
 
 export async function generateReleaseNotesContent(config: ResolvedChangelogOptions) {
@@ -20,19 +22,17 @@ export async function generateReleaseNotesContent(config: ResolvedChangelogOptio
 export async function updateReleaseNotesContent(releaseNotes: string, config: ResolvedChangelogOptions) {
   let url = `https://api.github.com/repos/${config.github}/releases`
   let method = 'POST'
-  try {
-    const exists = await $fetch(`https://api.github.com/repos/${config.github}/releases/tags/${config.to}`, {
-      headers: {
-        'Authorization': `token ${config.token}`,
-        'Content-Type': 'application/json',
-      },
-    })
-    if (exists.url) {
-      url = exists.url
-      method = 'PATCH'
-    }
+
+  consola.info('Looking for existing tag')
+  const exists = await lookForExistingTag(config)
+
+  if (exists.url) {
+    consola.info('Existing tag found, will PATCH on:', exists.url)
+    url = exists.url
+    method = 'PATCH'
   }
-  catch {
+  else {
+    consola.info('Tag not found, will POST on:', url)
   }
 
   await $fetch(url, {
@@ -41,6 +41,15 @@ export async function updateReleaseNotesContent(releaseNotes: string, config: Re
       tag_name: config.to,
       body: releaseNotes,
     },
+    headers: {
+      'Authorization': `token ${config.token}`,
+      'Content-Type': 'application/json',
+    },
+  })
+}
+
+async function lookForExistingTag(config: ResolvedChangelogOptions): Promise<FetchResponse<string>> {
+  return await $fetch(`https://api.github.com/repos/${config.github}/releases/tags/${config.to}`, {
     headers: {
       'Authorization': `token ${config.token}`,
       'Content-Type': 'application/json',
