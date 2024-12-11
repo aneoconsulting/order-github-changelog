@@ -1,19 +1,18 @@
 {
   "name": "@aneoconsultingfr/order-github-release-notes",
-  "version": "0.0.3",
-  "description": "Organize auto generated changelog using the GitHub API",
   "type": "module",
-  "scripts": {
-    "build": "unbuild",
-    "dev": "unbuild --stub",
-    "lint": "eslint .",
-    "prepublishOnly": "nr build",
-    "start": "nr dev && node cli.mjs",
-    "typecheck": "tsc --noEmit"
-  },
+  "version": "0.0.3",
+  "packageManager": "pnpm@8.3.1",
+  "description": "Organize auto generated changelog using the GitHub API",
+  "author": "Estéban Soubiran <esoubiran@aneo.fr>",
+  "license": "MIT",
+  "homepage": "https://github.com/aneoconsulting/order-github-release-notes#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aneoconsulting/order-github-release-notes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aneoconsulting/order-github-release-notes/issues"
   },
   "keywords": [
     "github",
@@ -25,8 +24,8 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     }
   },
   "main": "./dist/index.mjs",
@@ -34,33 +33,43 @@
   "types": "./dist/index.d.ts",
   "bin": "./cli.mjs",
   "files": [
-    "dist",
-    "*.mjs"
+    "*.mjs",
+    "dist"
   ],
   "engines": {
     "node": ">=18.0.0"
   },
-  "author": "Estéban Soubiran <esoubiran@aneo.fr>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/aneoconsulting/order-github-release-notes/issues"
+  "scripts": {
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "lint": "eslint .",
+    "prepublishOnly": "nr build",
+    "start": "nr dev && node cli.mjs",
+    "typecheck": "tsc --noEmit"
   },
-  "homepage": "https://github.com/aneoconsulting/order-github-release-notes#readme",
   "dependencies": {
-    "c12": "^1.4.1",
+    "c12": "^2.0.1",
     "cac": "^6.7.14",
-    "changelogen": "^0.5.3",
-    "changelogithub": "^0.12.9",
-    "consola": "^3.1.0",
-    "ofetch": "^1.0.1"
+    "changelogen": "^0.5.7",
+    "changelogithub": "^0.13.11",
+    "consola": "^3.2.3",
+    "ofetch": "^1.4.1"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.38.5",
-    "@types/node": "^18.16.3",
-    "eslint": "^8.39.0",
-    "jiti": "^1.18.2",
-    "typescript": "^5.0.4",
-    "unbuild": "^1.2.1"
+    "@antfu/eslint-config": "^3.11.2",
+    "@types/node": "^22.10.1",
+    "eslint": "^9.16.0",
+    "jiti": "^2.4.1",
+    "typescript": "^5.4.5",
+    "unbuild": "^2.0.0"
   },
-  "packageManager": "pnpm@8.3.1"
+  "pnpm": {
+    "overrides": {
+      "braces@<3.0.3": ">=3.0.3",
+      "cross-spawn@>=7.0.0 <7.0.5": ">=7.0.5",
+      "micromatch@<4.0.8": ">=4.0.8",
+      "semver@<5.7.2": ">=5.7.2",
+      "semver@>=7.0.0 <7.5.2": ">=7.5.2"
+    }
+  }
 }

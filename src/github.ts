@@ -1,15 +1,16 @@
-import { $fetch } from 'ofetch'
 import type { ReleaseNotes, ResolvedChangelogOptions } from './types'
+import { $fetch } from 'ofetch'
 
 export async function generateReleaseNotesContent(config: ResolvedChangelogOptions) {
   const data = await $fetch<ReleaseNotes>(`https://api.github.com/repos/${config.github}/releases/generate-notes`, {
     method: 'POST',
     headers: {
-      Authorization: `token ${config.token}`,
+      'Authorization': `token ${config.token}`,
+      'Content-Type': 'application/json',
     },
     body: {
       tag_name: config.to,
-      previous_tag_name: config.from
+      previous_tag_name: config.from,
     },
   })
 
@@ -22,7 +23,8 @@ export async function updateReleaseNotesContent(releaseNotes: string, config: Re
   try {
     const exists = await $fetch(`https://api.github.com/repos/${config.github}/releases/tags/${config.to}`, {
       headers: {
-        Authorization: `token ${config.token}`,
+        'Authorization': `token ${config.token}`,
+        'Content-Type': 'application/json',
       },
     })
     if (exists.url) {
@@ -30,7 +32,7 @@ export async function updateReleaseNotesContent(releaseNotes: string, config: Re
       method = 'PATCH'
     }
   }
-  catch (e) {
+  catch {
   }
 
   await $fetch(url, {
@@ -40,7 +42,8 @@ export async function updateReleaseNotesContent(releaseNotes: string, config: Re
       body: releaseNotes,
     },
     headers: {
-      Authorization: `token ${config.token}`,
+      'Authorization': `token ${config.token}`,
+      'Content-Type': 'application/json',
     },
   })
 }

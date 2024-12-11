@@ -1,10 +1,11 @@
+import type { ReleaseNotes } from './types'
+import process from 'node:process'
 import cac from 'cac'
 import { consola } from 'consola'
 import { version } from '../package.json'
+import { resolveConfig } from './config'
 import { buildReleaseNotes } from './generate'
 import { generateReleaseNotesContent, updateReleaseNotesContent } from './github'
-import { resolveConfig } from './config'
-import type { ReleaseNotes } from './types'
 
 const cli = cac('order-github-release-notes')
 

@@ -1,5 +1,5 @@
-import { getCurrentGitBranch, getFirstGitCommit, getGitHubRepo, getLastGitTag } from 'changelogithub'
 import type { ChangelogOptions, ResolvedChangelogOptions } from './types'
+import { getCurrentGitBranch, getFirstGitCommit, getGitHubRepo, getGitTags } from 'changelogithub'
 
 export function defineConfig(config: ChangelogOptions) {
   return config
@@ -27,12 +27,12 @@ export async function resolveConfig(options: ChangelogOptions) {
     overrides: options,
   }).then(r => r.config || defaultConfig)
 
-  config.from = config.from || await getLastGitTag()
+  config.from = config.from || (await getGitTags()).at(-1)
   config.to = config.to || await getCurrentGitBranch()
-  config.github = config.github || await getGitHubRepo()
+  config.github = config.github || await getGitHubRepo('github.com')
 
   if (config.to === config.from)
-    config.from = await getLastGitTag(-1) || await getFirstGitCommit()
+    config.from = (await getGitTags()).at(-1) || await getFirstGitCommit()
 
   return config as ResolvedChangelogOptions
 }
